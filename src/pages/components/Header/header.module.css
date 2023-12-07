@@ -6,10 +6,13 @@
   padding: 0.2rem 2rem;
   background-color: #669c4e;
 }
-.logo {
-  font-size: 3rem;
+
+.link {
+  text-decoration: none;
   color: white;
+  font-size: 3rem;
 }
+
 .navBar {
   display: flex;
   gap: 3rem;

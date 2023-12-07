@@ -1,0 +1,13 @@
+.wrapper {
+  width: 80%;
+  border: 1px solid black;
+  margin: 1rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+.photo {
+  width: 100%;
+  height: auto;
+}
