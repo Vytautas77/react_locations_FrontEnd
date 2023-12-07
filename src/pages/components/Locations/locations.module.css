@@ -1,0 +1,12 @@
+.wrapper {
+  height: fit-content;
+  padding: 0.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-items: center;
+  align-content: center;
+}
+.pageTitle {
+  text-align: center;
+}

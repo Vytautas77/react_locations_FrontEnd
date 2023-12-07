@@ -1,0 +1,8 @@
+.wrapper {
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem 2rem;
+  background-color: #669c4e;
+}
