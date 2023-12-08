@@ -3,6 +3,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import styles from "./addLocation.module.css";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const AddLocation = () => {
   const [title, setTitle] = useState("");
@@ -10,8 +11,9 @@ const AddLocation = () => {
   const [longitude, setLongitude] = useState("");
   const [location_photo_url, setLocation_photo_url] = useState("");
   const [description, setDescription] = useState("");
+  const router = useRouter();
 
-  const onAddLocation = () => {
+  const onAddLocation = async () => {
     const location = {
       title,
       latitude,
@@ -20,10 +22,13 @@ const AddLocation = () => {
       description,
     };
 
-    const response = axios.post("http://localhost:3001/locations", {
+    const response = await axios.post("http://localhost:3001/locations", {
       ...location,
     });
     console.log(response);
+    if (response.status === 200) {
+      router.push("/");
+    }
   };
 
   return (
@@ -52,6 +57,7 @@ const AddLocation = () => {
           placeholder="photo_url"
         />
         <textarea
+          style={{ resize: "none" }}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
