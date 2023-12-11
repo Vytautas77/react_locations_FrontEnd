@@ -1,7 +1,14 @@
 import React from "react";
 import styles from "./header.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
 const Header = () => {
+  const router = useRouter();
+  const onLoginButton = () => {
+    router.push("/Login");
+  };
+
   return (
     <div className={styles.wrapper}>
       <div>
@@ -24,7 +31,7 @@ const Header = () => {
             <Link href="/add-location">Add location</Link>
           </li>
         </ul>
-        <button>Login</button>
+        <button onClick={onLoginButton}>Login</button>
       </nav>
     </div>
   );

@@ -4,8 +4,11 @@ import Footer from "../components/Footer/Footer";
 import styles from "./addLocation.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Button from "../components/Button/Button";
+import cookie from "js-cookie";
 
 const AddLocation = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -14,6 +17,9 @@ const AddLocation = () => {
   const router = useRouter();
 
   const onAddLocation = async () => {
+    // validacija
+    setIsLoading(true);
+
     const location = {
       title,
       latitude,
@@ -21,11 +27,17 @@ const AddLocation = () => {
       location_photo_url,
       description,
     };
+    const headers = {
+      authorization: cookie.get("log152log"),
+    };
 
-    const response = await axios.post("http://localhost:3001/locations", {
-      ...location,
-    });
-    console.log(response);
+    const response = await axios.post(
+      "http://localhost:3001/locations",
+      location,
+      { headers }
+    );
+    setIsLoading(false);
+
     if (response.status === 200) {
       router.push("/");
     }
@@ -64,9 +76,7 @@ const AddLocation = () => {
           cols={50}
           placeholder="description"
         />
-        <button className={styles.btn} onClick={onAddLocation}>
-          Add location
-        </button>
+        <Button isLoading={isLoading} onAddLocation={onAddLocation} />
       </div>
       <Footer />;
     </>
