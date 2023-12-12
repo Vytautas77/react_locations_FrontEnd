@@ -4,6 +4,9 @@ import cookie from "js-cookie";
 import axios from "axios";
 import LocationId from "../components/LocationId/LocationId";
 import PageTemplate from "../template/PageTemplate";
+type LocationType = {
+  id: string;
+};
 
 type locationType = {
   title: string;
@@ -14,7 +17,7 @@ type locationType = {
   location_id: string;
 };
 
-const Location = () => {
+const Location: React.FC<LocationType> = () => {
   const [location, setLocation] = useState<locationType | null>(null);
 
   const router = useRouter();
@@ -39,7 +42,7 @@ const Location = () => {
 
   return (
     <PageTemplate>
-      <LocationId location={location} />
+      <LocationId location={location} id={router.query.id} />
     </PageTemplate>
   );
 };

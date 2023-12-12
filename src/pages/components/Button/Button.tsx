@@ -3,13 +3,14 @@ import styles from "./button.module.css";
 
 type ButtonType = {
   isLoading: boolean;
-  onAddLocation: () => void;
+  onClick: () => void;
+  text: string;
 };
 
-const Button: React.FC<ButtonType> = ({ isLoading, onAddLocation }) => {
+const Button: React.FC<ButtonType> = ({ isLoading, onClick, text }) => {
   return (
-    <button className={styles.btn} onClick={onAddLocation}>
-      {isLoading ? <>Add location</> : <>loading...</>}
+    <button className={styles.btn} onClick={onClick}>
+      {!isLoading ? <>{text}</> : <>loading...</>}
     </button>
   );
 };

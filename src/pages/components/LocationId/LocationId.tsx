@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 import styles from "./locationId.module.css";
 import Button from "../Button/Button";
+import cookie from "js-cookie";
+import Modal from "../modal/Modal";
 
 type locationType = {
   title: string;
@@ -13,9 +17,31 @@ type locationType = {
 
 type LocationIdProps = {
   location: locationType | null;
+  id: string;
 };
 
-const LocationId: React.FC<LocationIdProps> = ({ location }) => {
+const LocationId: React.FC<LocationIdProps> = ({ location, id }) => {
+  console.log(id);
+  const router = useRouter();
+
+  const [isShowModal, setIsShowModal] = useState(false);
+  const onDeleteLocation = async () => {
+    const headers = {
+      authorization: cookie.get("log152log"),
+    };
+    const response = await axios.delete(
+      `http://localhost:3001/locations/${id}`,
+      {
+        headers,
+      }
+    );
+    if (response.status === 200) {
+      console.log("delete");
+
+      router.push("/");
+    }
+  };
+
   return (
     location && (
       <div className={styles.wrapper}>
@@ -29,8 +55,18 @@ const LocationId: React.FC<LocationIdProps> = ({ location }) => {
           <span>{location.latitude}</span>
           <span>{location.longitude}</span>
           <p>{location.description}</p>
-          <Button />
+          <Button
+            text="DELETE"
+            onClick={() => setIsShowModal(true)}
+            isLoading={false}
+          />
         </div>
+        {isShowModal && (
+          <Modal
+            onConfirm={onDeleteLocation}
+            onCancel={() => setIsShowModal(false)}
+          />
+        )}
       </div>
     )
   );

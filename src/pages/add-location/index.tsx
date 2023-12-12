@@ -9,7 +9,7 @@ import PageTemplate from "../template/PageTemplate";
 
 const AddLocation = () => {
   // validacija
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -91,7 +91,11 @@ const AddLocation = () => {
           cols={50}
           placeholder="description"
         />
-        <Button isLoading={!isLoading} onAddLocation={onAddLocation} />
+        <Button
+          text="Add location"
+          isLoading={!isLoading}
+          onClick={onAddLocation}
+        />
       </div>
     </PageTemplate>
   );
