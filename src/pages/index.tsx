@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+
 import Locations from "./components/Locations/Locations";
 import cookie from "js-cookie";
+import { useRouter } from "next/router";
+import PageTemplate from "./template/PageTemplate";
 
 const Index = () => {
   const [locations, setLocations] = useState<Array<any> | null>(null);
+  const router = useRouter();
 
   const fetchLocations = async () => {
     try {
@@ -19,6 +21,10 @@ const Index = () => {
       setLocations(response.data.locations);
     } catch (error) {
       console.error("Error fetching locations:", error);
+
+      if (error.response.status === 401) {
+        router.push("/Login");
+      }
     }
   };
 
@@ -28,9 +34,9 @@ const Index = () => {
 
   return (
     <div>
-      <Header />
-      <Locations locations={locations} />
-      <Footer />
+      <PageTemplate>
+        <Locations locations={locations} />
+      </PageTemplate>
     </div>
   );
 };

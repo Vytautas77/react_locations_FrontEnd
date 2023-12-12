@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./header.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import exit from "../../../img/exit.png";
+import Image from "next/image";
+import cookie from "js-cookie";
 
 const Header = () => {
+  //paslepiamas logOut jei neprisijunges
+  const [isUserLoginIn, setIsUserLoginIn] = useState(false);
+  useEffect(() => {
+    const savedCookie = cookie.get("log152log");
+    if (savedCookie) {
+      setIsUserLoginIn(true);
+    }
+  }, []);
+
   const router = useRouter();
   const onLoginButton = () => {
     router.push("/Login");
+  };
+  const onClickLogOut = () => {
+    try {
+      cookie.remove("log152log");
+      router.push("/Login");
+    } catch (error) {
+      console.error("Error during log-out:", error);
+    }
   };
 
   return (
@@ -32,6 +52,16 @@ const Header = () => {
           </li>
         </ul>
         <button onClick={onLoginButton}>Login</button>
+        {isUserLoginIn && (
+          <Image
+            src={exit}
+            className={styles.logOut}
+            onClick={onClickLogOut}
+            alt="Log out"
+            width={200}
+            height={200}
+          />
+        )}
       </nav>
     </div>
   );

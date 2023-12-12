@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./locationId.module.css";
+import Button from "../Button/Button";
 
 type locationType = {
   title: string;
@@ -28,6 +29,7 @@ const LocationId: React.FC<LocationIdProps> = ({ location }) => {
           <span>{location.latitude}</span>
           <span>{location.longitude}</span>
           <p>{location.description}</p>
+          <Button />
         </div>
       </div>
     )

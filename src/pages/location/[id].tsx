@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import cookie from "js-cookie";
 import axios from "axios";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
 import LocationId from "../components/LocationId/LocationId";
+import PageTemplate from "../template/PageTemplate";
 
 type locationType = {
   title: string;
@@ -20,20 +20,27 @@ const Location = () => {
   const router = useRouter();
 
   const fetchLocation = async (id: string) => {
-    const location = await axios.get(`http://localhost:3001/locations/${id}`);
-    setLocation(location.data.location);
+    try {
+      const headers = {
+        authorization: cookie.get("log152log"),
+      };
+      const location = await axios.get(
+        `http://localhost:3001/locations/${id}`,
+        { headers }
+      );
+      setLocation(location.data.location);
+    } catch (error) {
+      console.error("Error fetching locations:", error);
+    }
   };
-
   useEffect(() => {
     router.query.id && fetchLocation(router.query.id as string);
   }, [router.query.id]);
 
   return (
-    <div>
-      <Header />
+    <PageTemplate>
       <LocationId location={location} />
-      <Footer />
-    </div>
+    </PageTemplate>
   );
 };
 

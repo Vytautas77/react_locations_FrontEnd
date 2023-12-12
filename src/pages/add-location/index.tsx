@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+
 import styles from "./addLocation.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Button from "../components/Button/Button";
 import cookie from "js-cookie";
+import PageTemplate from "../template/PageTemplate";
 
 const AddLocation = () => {
+  // validacija
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -17,35 +18,49 @@ const AddLocation = () => {
   const router = useRouter();
 
   const onAddLocation = async () => {
-    // validacija
-    setIsLoading(true);
+    try {
+      const textPattern = /.{5,}/;
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const photoPattern = /\bhttps?:\/\/\S+?\.(png|jpe?g|gif|bmp|webp)\b/;
+      if (!textPattern.test(title)) {
+        return;
+      }
+      if (!photoPattern.test(location_photo_url)) {
+        return console.log("Mistake");
+      }
+      setIsLoading(true);
 
-    const location = {
-      title,
-      latitude,
-      longitude,
-      location_photo_url,
-      description,
-    };
-    const headers = {
-      authorization: cookie.get("log152log"),
-    };
+      const location = {
+        title,
+        latitude,
+        longitude,
+        location_photo_url,
+        description,
+      };
+      const headers = {
+        authorization: cookie.get("log152log"),
+      };
 
-    const response = await axios.post(
-      "http://localhost:3001/locations",
-      location,
-      { headers }
-    );
-    setIsLoading(false);
+      const response = await axios.post(
+        "http://localhost:3001/locations",
+        location,
+        { headers }
+      );
+      setIsLoading(false);
 
-    if (response.status === 200) {
-      router.push("/");
+      if (response.status === 200) {
+        router.push("/");
+      }
+    } catch (error) {
+      if (error.response.status === 401) {
+        router.push("/Login");
+      }
+      console.error("Error adding location:", error);
     }
   };
 
   return (
-    <>
-      <Header />
+    <PageTemplate>
       <h1 className={styles.h1}> Add location</h1>
       <div className={styles.form}>
         <input
@@ -76,10 +91,9 @@ const AddLocation = () => {
           cols={50}
           placeholder="description"
         />
-        <Button isLoading={isLoading} onAddLocation={onAddLocation} />
+        <Button isLoading={!isLoading} onAddLocation={onAddLocation} />
       </div>
-      <Footer />;
-    </>
+    </PageTemplate>
   );
 };
 

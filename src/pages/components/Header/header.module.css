@@ -43,3 +43,9 @@
   background-color: #374724;
   color: white;
 }
+.logOut {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: -40px;
+}
