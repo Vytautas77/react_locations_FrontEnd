@@ -25,8 +25,10 @@ const Location = () => {
         authorization: cookie.get("log152log"),
       };
       const location = await axios.get(
-        `https://location-backend.onrender.com/${id}`,
-        { headers }
+        `${process.env.SERVER_URL}/locations/${id}`,
+        {
+          headers,
+        }
       );
       setLocation(location.data.location);
     } catch (error) {

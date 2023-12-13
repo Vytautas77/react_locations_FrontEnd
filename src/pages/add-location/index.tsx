@@ -42,7 +42,7 @@ const AddLocation = () => {
       };
 
       const response = await axios.post(
-        "https://location-backend.onrender.com",
+        `${process.env.SERVER_URL}/locations`,
         location,
         { headers }
       );

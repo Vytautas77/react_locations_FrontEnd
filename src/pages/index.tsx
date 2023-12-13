@@ -15,12 +15,9 @@ const Index = () => {
       const headers = {
         authorization: cookie.get("log152log"),
       };
-      const response = await axios.get(
-        "https://location-backend.onrender.com",
-        {
-          headers,
-        }
-      );
+      const response = await axios.get(`${process.env.SERVER_URL}/locations`, {
+        headers,
+      });
       setLocations(response.data.locations);
     } catch (error) {
       console.error("Error fetching locations:", error);

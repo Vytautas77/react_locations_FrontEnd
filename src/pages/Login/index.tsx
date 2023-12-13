@@ -17,7 +17,7 @@ const Login = () => {
       password: password,
     };
     const response = await axios.post(
-      "https://location-backend.onrender.com/users/login",
+      `${process.env.SERVER_URL}/users/login`,
       body
     );
 

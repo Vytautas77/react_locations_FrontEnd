@@ -31,7 +31,7 @@ const LocationId: React.FC<LocationIdProps> = ({ location, id }) => {
       authorization: cookie.get("log152log"),
     };
     const response = await axios.delete(
-      `https://location-backend.onrender.com/${id}`,
+      `${process.env.SERVER_URL}/locations/${id}`,
       {
         headers,
       }
