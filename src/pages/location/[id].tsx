@@ -4,9 +4,6 @@ import cookie from "js-cookie";
 import axios from "axios";
 import LocationId from "../components/LocationId/LocationId";
 import PageTemplate from "../template/PageTemplate";
-type LocationType = {
-  id: string;
-};
 
 type locationType = {
   title: string;
@@ -17,7 +14,7 @@ type locationType = {
   location_id: string;
 };
 
-const Location: React.FC<LocationType> = () => {
+const Location = () => {
   const [location, setLocation] = useState<locationType | null>(null);
 
   const router = useRouter();
@@ -28,7 +25,7 @@ const Location: React.FC<LocationType> = () => {
         authorization: cookie.get("log152log"),
       };
       const location = await axios.get(
-        `http://localhost:3001/locations/${id}`,
+        `https://location-backend.onrender.com/${id}`,
         { headers }
       );
       setLocation(location.data.location);
@@ -42,7 +39,7 @@ const Location: React.FC<LocationType> = () => {
 
   return (
     <PageTemplate>
-      <LocationId location={location} id={router.query.id} />
+      <LocationId location={location} id={router.query.id as string} />
     </PageTemplate>
   );
 };

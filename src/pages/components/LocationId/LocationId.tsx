@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -30,7 +31,7 @@ const LocationId: React.FC<LocationIdProps> = ({ location, id }) => {
       authorization: cookie.get("log152log"),
     };
     const response = await axios.delete(
-      `http://localhost:3001/locations/${id}`,
+      `https://location-backend.onrender.com/${id}`,
       {
         headers,
       }
@@ -59,6 +60,7 @@ const LocationId: React.FC<LocationIdProps> = ({ location, id }) => {
             text="DELETE"
             onClick={() => setIsShowModal(true)}
             isLoading={false}
+            className={styles.delBtn}
           />
         </div>
         {isShowModal && (

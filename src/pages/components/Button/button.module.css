@@ -2,6 +2,7 @@
   cursor: pointer;
   padding: 0.3rem 0.5rem;
   background-color: #669c4e;
+  width: 8rem;
 }
 .btn:hover {
   background-color: #374724;

@@ -34,7 +34,12 @@ const Modal: React.FC<ModalType> = ({ onConfirm, onCancel }) => {
       <div className={styles.wrapperContent}>
         <h2>Ar tikrai norite ištrinti?</h2>
         <div className={styles.btn}>
-          <Button text="IŠTRINTI" isLoading={false} onClick={onConfirm} />
+          <Button
+            text="IŠTRINTI"
+            className={styles.delBtn}
+            isLoading={false}
+            onClick={onConfirm}
+          />
           <Button text="Atšaukti" isLoading={false} onClick={onCancel} />
         </div>
       </div>

@@ -5,6 +5,7 @@ import styles from "./login.module.css";
 import cookie from "js-cookie";
 import { useRouter } from "next/router";
 import PageTemplate from "../template/PageTemplate";
+import Button from "../components/Button/Button";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -16,7 +17,7 @@ const Login = () => {
       password: password,
     };
     const response = await axios.post(
-      "http://localhost:3001/users/login",
+      "https://location-backend.onrender.com/users/login",
       body
     );
 
@@ -44,9 +45,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="password"
             />
-            <button className={styles.btn} onClick={onLogin}>
-              Login
-            </button>
+            <Button onClick={onLogin} text={"Login"} />
           </div>
         </div>
       </PageTemplate>

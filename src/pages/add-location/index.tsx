@@ -42,7 +42,7 @@ const AddLocation = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:3001/locations",
+        "https://location-backend.onrender.com",
         location,
         { headers }
       );
@@ -52,6 +52,7 @@ const AddLocation = () => {
         router.push("/");
       }
     } catch (error) {
+      //@ts-ignore
       if (error.response.status === 401) {
         router.push("/Login");
       }

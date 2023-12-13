@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import exit from "../../../img/exit.png";
 import Image from "next/image";
 import cookie from "js-cookie";
+import Button from "../Button/Button";
 
 const Header = () => {
   //paslepiamas logOut jei neprisijunges
@@ -51,7 +52,7 @@ const Header = () => {
             <Link href="/add-location">Add location</Link>
           </li>
         </ul>
-        <button onClick={onLoginButton}>Login</button>
+        <Button onClick={onLoginButton} text={"Login"} />
         {isUserLoginIn && (
           <Image
             src={exit}

@@ -15,13 +15,16 @@ const Index = () => {
       const headers = {
         authorization: cookie.get("log152log"),
       };
-      const response = await axios.get("http://localhost:3001/locations/", {
-        headers,
-      });
+      const response = await axios.get(
+        "https://location-backend.onrender.com",
+        {
+          headers,
+        }
+      );
       setLocations(response.data.locations);
     } catch (error) {
       console.error("Error fetching locations:", error);
-
+      //@ts-ignore
       if (error.response.status === 401) {
         router.push("/Login");
       }
