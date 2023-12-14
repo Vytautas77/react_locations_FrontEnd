@@ -21,7 +21,6 @@ const Location: React.FC<LocationComponentType> = ({ location }) => {
     <>
       {location && (
         <Link className={styles.link} href={`/location/${location._id}`}>
-          console.log(location._id);
           <div className={styles.wrapper}>
             <img
               className={styles.photo}
